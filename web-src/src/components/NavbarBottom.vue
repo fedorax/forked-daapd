@@ -231,7 +231,7 @@ export default {
       old_volume: 0,
 
       playing: false,
-      loading: false,
+      // loading: false,
       stream_volume: 10,
 
       show_outputs_menu: false,
@@ -302,23 +302,23 @@ export default {
     setupAudio: function () {
       const a = _audio.setupAudio()
 
-      a.addEventListener('waiting', e => {
-        this.playing = false
-        this.loading = true
-      })
-      a.addEventListener('playing', e => {
-        this.playing = true
-        this.loading = false
-      })
+      // a.addEventListener('waiting', e => {
+      //   this.playing = false
+      //   this.loading = true
+      // })
+      // a.addEventListener('playing', e => {
+      //   this.playing = true
+      //   this.loading = false
+      // })
       a.addEventListener('ended', e => {
         this.playing = false
-        this.loading = false
+        // this.loading = false
       })
       a.addEventListener('error', e => {
         this.closeAudio()
         this.$store.dispatch('add_notification', { text: 'HTTP stream error: failed to load stream or stopped loading due to network problem', type: 'danger' })
         this.playing = false
-        this.loading = false
+      //  this.loading = false
       })
     },
 
@@ -334,7 +334,8 @@ export default {
       }
 
       const channel = '/stream.mp3'
-      this.loading = true
+      // this.loading = true
+      this.playing = true
       _audio.playSource(channel)
       _audio.setVolume(this.stream_volume / 100)
     },
